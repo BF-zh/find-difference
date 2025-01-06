@@ -1,28 +1,48 @@
 <script setup lang="ts">
+const textarea1 = ref('')
+const textarea2 = ref('')
+
+const textarea3 = computed(() => {
+  // 单号A中不包含单号B的单号 或者 单号B中不包含单号A的单号
+  const a = textarea1.value.split('\n') || []
+  const b = textarea2.value.split('\n') || []
+  return a.filter(item => !b.includes(item)).concat(b.filter(item => !a.includes(item))).join('\n')
+})
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo">
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo">
-    </a>
-  </div>
+  {{ textarea3 }}
+  <el-container h-100vh w-100vw>
+    <el-header class="flex justify-center items-center h-10 p-2 bg-gray-100">
+      <h1>单号查找</h1>
+    </el-header>
+    <el-main>
+      <div class="grid grid-cols-2 gap-sm w-70vw m-auto">
+        <el-input
+          v-model="textarea1"
+          :autosize="{ minRows: 5, maxRows: 10 }"
+          type="textarea"
+          placeholder="请输入单号A"
+          resize="none"
+        />
+        <el-input
+          v-model="textarea2"
+          :autosize="{ minRows: 5, maxRows: 10 }"
+          type="textarea"
+          placeholder="请输入单号B"
+        />
+        <el-input
+          :value="textarea3"
+          :autosize="{ minRows: 5, maxRows: 10 }"
+          type="textarea"
+          readonly
+          resize="none"
+        />
+      </div>
+    </el-main>
+    <el-footer>Footer</el-footer>
+  </el-container>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
 </style>
