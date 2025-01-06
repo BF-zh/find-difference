@@ -11,7 +11,6 @@ const textarea3 = computed(() => {
 </script>
 
 <template>
-  {{ textarea3 }}
   <el-container h-100vh w-100vw>
     <el-header class="flex justify-center items-center h-10 p-2 bg-gray-100">
       <h1>单号查找</h1>
